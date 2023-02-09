@@ -1,5 +1,6 @@
 package com.tpe.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class Author {
 
     private String authorLastName;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "author")
     private List<Book> books = new ArrayList<>();
 

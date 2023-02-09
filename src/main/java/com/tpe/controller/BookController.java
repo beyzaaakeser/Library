@@ -46,7 +46,7 @@ public class BookController {
 
     @PostMapping("/create") //http://localhost:8080/kitap/kitap + POST + JSON
     public ResponseEntity<String> createBook(@RequestBody BookRequest bookRequest){
-        bookService.createKitap(bookRequest);
+        bookService.createBook(bookRequest);
         String str = "Book is create successfully";
         return new ResponseEntity<>(str, HttpStatus.CREATED);
     }
@@ -84,7 +84,6 @@ public class BookController {
         return ResponseEntity.ok(list);
 
     }
-
 
 
 //    @PostMapping("/kitap_kayit") //http://localhost:8080/kitap/kitap_kayit + POST + JSON

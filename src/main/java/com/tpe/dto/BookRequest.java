@@ -34,6 +34,9 @@ public class BookRequest {
     private Integer book_year;
 
 
+    private Long authorId;
+    private Long publisherId;
+
 
     public BookRequest(Book book){
         this.book_name = book.getName();

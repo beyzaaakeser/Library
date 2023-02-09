@@ -3,6 +3,7 @@ package com.tpe.service;
 import com.tpe.domain.Author;
 import com.tpe.dto.AuthorRequest;
 import com.tpe.exeption.ConflictException;
+import com.tpe.exeption.ResourceNotFountException;
 import com.tpe.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,8 +32,8 @@ public class AuthorService {
     }
 
     public Author getAuthorId(Long id) {
-        return authorRepository.findById(id).orElseThrow(() ->
-                new ConflictException(" The author for this id could not be found." + id));
+        return authorRepository.findById(id).orElseThrow(
+                ()-> new ResourceNotFountException("Author not fount with id : " + id));
     }
 
 
@@ -45,4 +46,28 @@ public class AuthorService {
 
         authorRepository.save(author);
     }
+
+    public void deleteAuthor(Long id) {
+
+       Author author = getAuthorId(id);
+       authorRepository.delete(author);
+
+    }
+
+    public List<Author> findAuthor(String name) {
+        return authorRepository.findByAuthorName(name);
+    }
+
+    public List<Author> findAuthorByLastName(String authorLastName) {
+        return authorRepository.findByAuthorLastName(authorLastName);
+    }
+
+
+    public List<Author> getAllAuthorByFullName(String name, String lastname) {
+
+        String lowerName = name.toLowerCase();
+        String lowerLastName = lastname.toLowerCase();
+        return authorRepository.AuthorNameAndAuthorLastName(lowerName, lowerLastName);
+    }
+
 }

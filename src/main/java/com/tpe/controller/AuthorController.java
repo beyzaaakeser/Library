@@ -29,24 +29,56 @@ public class AuthorController {
         return new ResponseEntity<>(str, HttpStatus.CREATED);
     }
 
-
+    // get all author
     @GetMapping("/authors")
     public ResponseEntity<List<Author>> getAuthor(){
 
-       List<Author> authors = authorService.getAuthor();
+        List<Author> authors = authorService.getAuthor();
 
-       return ResponseEntity.ok(authors);
+        return ResponseEntity.ok(authors);
     }
 
-
+    // get author by id
     @GetMapping("{id}")
-    public ResponseEntity<Author> getAuthorId(@PathVariable("id") Long id){
+    public ResponseEntity<Author> getAuthorId(@PathVariable Long id){
+
         Author author = authorService.getAuthorId(id);
         return ResponseEntity.ok(author);
     }
 
-    // update
+    // get Author By Name
+    @GetMapping("name")
+    public ResponseEntity<List<Author>> getAuthorByName(@RequestParam("name") String name){
 
+        List<Author> authorList = authorService.findAuthor(name);
+
+        return ResponseEntity.ok(authorList);
+
+    }
+
+    // get Author By Last Name
+    @GetMapping("authorLastName")
+    public ResponseEntity<List<Author>> getAuthorByLastName(@RequestParam("authorLastName") String authorLastName){
+
+        List<Author> authorList = authorService.findAuthorByLastName(authorLastName);
+
+        return ResponseEntity.ok(authorList);
+
+    }
+
+    // get author by name and last name
+
+    @GetMapping("/fullname")
+    public ResponseEntity<List<Author>> authors(@RequestParam("name") String name,
+                                                @RequestParam("lastname") String lastname){
+
+        List<Author> authors = authorService.getAllAuthorByFullName(name, lastname);
+
+        return ResponseEntity.ok(authors);
+    }
+
+
+    // Update author
     @PutMapping("{id}")
     public ResponseEntity<String> updateAuthor(@PathVariable("id") Long id, @RequestBody AuthorRequest authorRequest){
 
@@ -58,18 +90,14 @@ public class AuthorController {
     }
 
 
+    // delete author
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteAuthor(@PathVariable("id") Long id){
+        authorService.deleteAuthor(id);
+        String str = "This author has been deleted";
 
-
-
-
-    // delete
-
-
-
-
-
-
-    // get book by name
+        return new ResponseEntity<>(str, HttpStatus.OK);
+    }
 
 
 

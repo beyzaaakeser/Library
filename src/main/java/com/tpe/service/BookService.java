@@ -1,9 +1,13 @@
 package com.tpe.service;
 
+import com.tpe.domain.Author;
 import com.tpe.domain.Book;
+import com.tpe.domain.Publisher;
 import com.tpe.dto.BookRequest;
 import com.tpe.exeption.ConflictException;
+import com.tpe.repository.AuthorRepository;
 import com.tpe.repository.BookRepository;
+import com.tpe.repository.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,25 +18,43 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
+    @Autowired
+    private AuthorRepository authorRepository;
+
+    @Autowired
+    PublisherRepository publisherRepository;
+
 
     public List<Book> getBook() {
 
         return bookRepository.findAll();
     }
 
-    public void createKitap(BookRequest bookRequest) {
+
+    public void createBook(BookRequest bookRequest) {
 
         boolean existsBySerino = bookRepository.existsBySerino(bookRequest.getBook_serial());
 
         if (existsBySerino) {
             throw new ConflictException("There is a book with this serial number :" + bookRequest.getBook_serial());
         }
+
+        Author author = authorRepository.findById(bookRequest.getAuthorId()).orElseThrow(() ->
+                new ConflictException(" The author for this id could not be found."));
+
+        Publisher publisher = publisherRepository.findById(bookRequest.getPublisherId()).orElseThrow(() ->
+                new ConflictException(" The author for this id could not be found."));
+
+
         Book book = new Book();
         book.setName(bookRequest.getBook_name());
         book.setType(bookRequest.getBook_type());
         book.setSerino(bookRequest.getBook_serial());
         book.setIsbnNo(bookRequest.getBook_isbn());
         book.setYearOfPublication(bookRequest.getBook_year());
+
+        book.setAuthor(author);
+        book.setPublisher(publisher);
 
         bookRepository.save(book);
     }
