@@ -85,6 +85,37 @@ public class BookController {
 
     }
 
+    @GetMapping("/type")
+    public ResponseEntity<List<Book>> getBookByType(@RequestParam("type") String type){
+        List<Book> books= bookService.findBookByType(type);
+        return ResponseEntity.ok(books);
+
+    }
+
+    @GetMapping("/serial/{serial}")
+    public ResponseEntity<Book> getBookBySerial(@PathVariable("serial") String serial){
+        Book book = bookService.findByserino(serial);
+        return ResponseEntity.ok(book);
+    }
+
+
+    @GetMapping("/author/{id}")
+    public ResponseEntity<List<Book>> authorBook(@PathVariable("id") Long id){
+        List<Book> books = bookService.findAuthorBook(id);
+        return ResponseEntity.ok(books);
+    }
+
+    @GetMapping("/publisher/{id}")
+    public ResponseEntity<List<Book>> publisherBook(@PathVariable("id") Long id){
+        List<Book> books = bookService.findPublisherBook(id);
+        return ResponseEntity.ok(books);
+    }
+
+
+
+
+
+
 
 //    @PostMapping("/kitap_kayit") //http://localhost:8080/kitap/kitap_kayit + POST + JSON
 //    public ResponseEntity<String> createBilgileriKitap(@RequestBody KitapDTO kitapDTO){

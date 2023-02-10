@@ -1,11 +1,14 @@
 package com.tpe.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tpe.domain.Member.DepositBook;
+import com.tpe.domain.Member.Member;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 
 @Setter
@@ -50,5 +53,6 @@ public class Book {
     private Publisher publisher;
 
 
-
+    @OneToOne
+    private Member member;
 }

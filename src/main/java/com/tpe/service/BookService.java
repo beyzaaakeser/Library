@@ -87,4 +87,20 @@ public class BookService {
     }
 
 
+    public List<Book> findBookByType(String type) {
+        return bookRepository.findByType(type);
+    }
+
+    public List<Book> findAuthorBook(Long id) {
+       return bookRepository.findAuthorId(id);
+    }
+
+    public List<Book> findPublisherBook(Long id) {
+        return bookRepository.findPublisherId(id);
+    }
+
+
+    public Book findByserino(String serial) {
+        return bookRepository.findByserino(serial);
+    }
 }
