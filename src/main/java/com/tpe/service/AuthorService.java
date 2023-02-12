@@ -33,7 +33,7 @@ public class AuthorService {
 
     public Author getAuthorId(Long id) {
         return authorRepository.findById(id).orElseThrow(
-                ()-> new ResourceNotFountException("Author not fount with id : " + id));
+                ()-> new ResourceNotFountException("Author not found with id : " + id));
     }
 
 

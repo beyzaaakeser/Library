@@ -1,14 +1,11 @@
 package com.tpe.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.tpe.domain.Member.DepositBook;
-import com.tpe.domain.Member.Member;
+import com.tpe.domain.member.Member;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 
 @Setter

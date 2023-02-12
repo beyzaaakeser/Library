@@ -1,13 +1,10 @@
-package com.tpe.domain.Member;
+package com.tpe.domain.member;
 
-import com.tpe.domain.Book;
 import lombok.*;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +20,8 @@ public class Member {
     @Setter(AccessLevel.NONE)
     private Long id;
 
-
     @NotBlank
-    @Column(unique = true,nullable = false, length = 11)
+    @Column(length =11, unique = true, nullable = false)
     private String identificationNumber;
 
     @NotBlank
