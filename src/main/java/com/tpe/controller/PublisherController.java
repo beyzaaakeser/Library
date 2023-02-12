@@ -5,6 +5,10 @@ import com.tpe.domain.Publisher;
 import com.tpe.dto.PublisherRequest;
 import com.tpe.service.PublisherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -74,6 +78,18 @@ public class PublisherController {
         String str = "Publisher is update successfully";
 
         return new ResponseEntity<>(str,HttpStatus.OK);
+    }
+
+
+    @GetMapping("/page")
+    public ResponseEntity<Page<Publisher>> getAllWithPage(@RequestParam("page") int page,
+    @RequestParam("size") int size,
+    @RequestParam("sort") String prop,
+    @RequestParam("direction") Sort.Direction direction){
+
+        Pageable pageable = PageRequest.of(page,size,Sort.by(direction,prop));
+        Page<Publisher> publisherPage = publisherService.getAllWithPage(pageable);
+        return ResponseEntity.ok(publisherPage);
     }
 
 

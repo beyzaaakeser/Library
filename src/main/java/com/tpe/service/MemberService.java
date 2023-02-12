@@ -7,6 +7,8 @@ import com.tpe.exeption.ResourceNotFountException;
 import com.tpe.repository.AuthorRepository;
 import com.tpe.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -92,4 +94,7 @@ public class MemberService {
         memberRepository.save(member);
     }
 
+    public Page<Member> getAllMemberByPage(Pageable pageable) {
+        return memberRepository.findAll(pageable);
+    }
 }

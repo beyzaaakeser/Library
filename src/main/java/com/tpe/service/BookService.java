@@ -9,6 +9,8 @@ import com.tpe.repository.AuthorRepository;
 import com.tpe.repository.BookRepository;
 import com.tpe.repository.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -102,5 +104,9 @@ public class BookService {
 
     public Book findByserino(String serial) {
         return bookRepository.findByserino(serial);
+    }
+
+    public Page<Book> getAllWithPage(Pageable pageable) {
+        return bookRepository.findAll(pageable);
     }
 }

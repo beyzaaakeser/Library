@@ -5,6 +5,10 @@ import com.tpe.domain.member.Member;
 import com.tpe.dto.MemberRequest;
 import com.tpe.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -90,5 +94,21 @@ public class MemberController {
         return new ResponseEntity<>(str, HttpStatus.OK);
 
     }
+
+
+    @GetMapping("/page")
+    public ResponseEntity<Page<Member>> getAllMemberByPage(@RequestParam(required = false,value = "page",defaultValue = "0") int page,
+                                                           @RequestParam("size") int size ,
+                                                           @RequestParam("sort") String prop,
+                                                           @RequestParam("direction") Sort.Direction direction){
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction,prop));
+
+        Page<Member> memberPage = memberService.getAllMemberByPage(pageable);
+        return ResponseEntity.ok(memberPage);
+    }
+
+
+
 
 }

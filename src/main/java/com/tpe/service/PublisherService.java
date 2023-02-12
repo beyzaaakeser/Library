@@ -6,6 +6,8 @@ import com.tpe.exeption.ConflictException;
 import com.tpe.exeption.ResourceNotFountException;
 import com.tpe.repository.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,5 +57,9 @@ public class PublisherService {
         if (publisherRequest.getPublisher_name() != null) publisher.setPublisherName(publisherRequest.getPublisher_name());
 
         publisherRepository.save(publisher);
+    }
+
+    public Page<Publisher> getAllWithPage(Pageable pageable) {
+        return publisherRepository.findAll(pageable);
     }
 }

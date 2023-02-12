@@ -6,6 +6,8 @@ import com.tpe.exeption.ConflictException;
 import com.tpe.exeption.ResourceNotFountException;
 import com.tpe.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -70,4 +72,7 @@ public class AuthorService {
         return authorRepository.AuthorNameAndAuthorLastName(lowerName, lowerLastName);
     }
 
+    public Page<Author> getAllWithPage(Pageable pageable) {
+        return authorRepository.findAll(pageable);
+    }
 }

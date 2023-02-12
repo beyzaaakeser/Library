@@ -4,6 +4,10 @@ import com.tpe.domain.Book;
 import com.tpe.dto.BookRequest;
 import com.tpe.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -110,6 +114,20 @@ public class BookController {
         List<Book> books = bookService.findPublisherBook(id);
         return ResponseEntity.ok(books);
     }
+
+
+    @GetMapping("/page")
+    public ResponseEntity<Page<Book>> getAllWithPage(
+            @RequestParam("page") int page,
+            @RequestParam("size") int size,
+            @RequestParam("sort") String prop,
+            @RequestParam("direction") Sort.Direction direction
+    ){
+        Pageable pageable = PageRequest.of(page,size,Sort.by(direction,prop));
+        Page<Book> bookPage = bookService.getAllWithPage(pageable);
+        return ResponseEntity.ok(bookPage);
+    }
+
 
 
 
